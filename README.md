@@ -1,3 +1,3 @@
-QuartetPaymentManualyBundle
-===========================
+QuartetPaymentManuallyBundle
+============================
 

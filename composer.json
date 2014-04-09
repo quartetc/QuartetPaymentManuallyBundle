@@ -1,5 +1,5 @@
 {
-    "name": "quartet/payment-manualy-bundle",
+    "name": "quartet/payment-manually-bundle",
     "authors": [
         {
             "name": "Shota Hoshino",
@@ -16,8 +16,8 @@
     },
     "autoload": {
         "psr-0": {
-            "Quartet\\Payment\\ManualyBundle": ""
+            "Quartet\\Payment\\ManuallyBundle": ""
         }
     },
-    "target-dir": "Quartet/Payment/ManualyBundle"
+    "target-dir": "Quartet/Payment/ManuallyBundle"
 }
