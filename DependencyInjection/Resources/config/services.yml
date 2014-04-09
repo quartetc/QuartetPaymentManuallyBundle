@@ -1,0 +1,7 @@
+services:
+  quartet_payment_manually.payment_plugin:
+    class: Quartet\Payment\ManuallyBundle\Plugin\ManuallyPlugin
+    arguments:
+      - @quartet_payment_manually.payment_method
+    tags:
+      - { name: payment.plugin }
