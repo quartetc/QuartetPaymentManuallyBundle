@@ -2,6 +2,7 @@
 
 namespace Quartet\Payment\ManuallyBundle\Plugin;
 
+use JMS\Payment\CoreBundle\Model\FinancialTransactionInterface;
 use JMS\Payment\CoreBundle\Plugin\AbstractPlugin;
 use Symfony\Component\Form\FormTypeInterface;
 
@@ -18,6 +19,16 @@ class ManuallyPlugin extends AbstractPlugin
     public function __construct(FormTypeInterface $paymentMethod)
     {
         $this->paymentMethod = $paymentMethod;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function approve(FinancialTransactionInterface $transaction, $retry)
+    {
+        // always approve
+        $transaction->setProcessedAmount($transaction->getRequestedAmount());
+        $transaction->setResponseCode(self::RESPONSE_CODE_SUCCESS);
     }
 
     /**
