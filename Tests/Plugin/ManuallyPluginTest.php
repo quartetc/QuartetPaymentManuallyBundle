@@ -58,6 +58,17 @@ class ManuallyPluginTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @expectedException \JMS\Payment\CoreBundle\Plugin\Exception\BlockedException
+     */
+    public function testDeposit()
+    {
+        $transaction = $this->getTransaction();
+
+        $this->plugin->deposit($transaction, false);
+    }
+
+    /**
      * @return FinancialTransactionInterface
      */
     private function getTransaction()
