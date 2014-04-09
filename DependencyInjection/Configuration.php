@@ -14,7 +14,13 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
 
-        $builder->root('quartet_payment_manually');
+        $root = $builder->root('quartet_payment_manually');
+
+        $root
+            ->children()
+                ->scalarNode('payment_method')->isRequired()->end()
+            ->end()
+        ;
 
         return $builder;
     }
