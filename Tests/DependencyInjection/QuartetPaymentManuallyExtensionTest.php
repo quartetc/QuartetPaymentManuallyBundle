@@ -3,7 +3,6 @@
 namespace Quartet\Payment\ManuallyBundle\Tests\DependencyInjection;
 
 use Quartet\Payment\ManuallyBundle\DependencyInjection\QuartetPaymentManuallyExtension;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class QuartetPaymentManuallyExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,48 +35,8 @@ class QuartetPaymentManuallyExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function testAddTagToPaymentMethod()
-    {
-        $definition = $this
-            ->getMockBuilder('Symfony\Component\DependencyInjection\Definition')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $definition
-            ->expects($this->once())
-            ->method('addTag')
-            ->with('payment.method_type');
-
-        $this
-            ->container
-            ->expects($this->any())
-            ->method('getDefinition')
-            ->with($this->equalTo('acme_payment_method'))
-            ->will($this->returnValue($definition));
-
-        $this->extension->load(array(array(
-            'payment_method' => 'acme_payment_method'
-        )), $this->container);
-    }
-
-    /**
-     * @test
-     * @depends testAddTagToPaymentMethod
-     */
     public function testPaymentMethodAlias()
     {
-        $definition = $this
-            ->getMockBuilder('Symfony\Component\DependencyInjection\Definition')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this
-            ->container
-            ->expects($this->any())
-            ->method('getDefinition')
-            ->with($this->equalTo('acme_payment_method'))
-            ->will($this->returnValue($definition));
-
         $this
             ->container
             ->expects($this->once())
