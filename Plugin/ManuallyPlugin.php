@@ -4,7 +4,6 @@ namespace Quartet\Payment\ManuallyBundle\Plugin;
 
 use JMS\Payment\CoreBundle\Model\FinancialTransactionInterface;
 use JMS\Payment\CoreBundle\Plugin\AbstractPlugin;
-use JMS\Payment\CoreBundle\Plugin\Exception\BlockedException;
 use Symfony\Component\Form\FormTypeInterface;
 
 class ManuallyPlugin extends AbstractPlugin
@@ -27,7 +26,6 @@ class ManuallyPlugin extends AbstractPlugin
      */
     public function approve(FinancialTransactionInterface $transaction, $retry)
     {
-        // always approve
         $transaction->setProcessedAmount($transaction->getRequestedAmount());
         $transaction->setResponseCode(self::RESPONSE_CODE_SUCCESS);
     }
@@ -37,7 +35,8 @@ class ManuallyPlugin extends AbstractPlugin
      */
     public function deposit(FinancialTransactionInterface $transaction, $retry)
     {
-        throw new BlockedException('deposit manually');
+        $transaction->setProcessedAmount($transaction->getRequestedAmount());
+        $transaction->setResponseCode(self::RESPONSE_CODE_SUCCESS);
     }
 
     /**
