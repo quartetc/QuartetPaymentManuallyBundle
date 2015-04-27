@@ -19,7 +19,10 @@ class QuartetPaymentManuallyExtensionTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->extension = new QuartetPaymentManuallyExtension();
-        $this->container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $this->container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerBuilder')
+            ->setMethods(array('setAlias'))
+            ->getMock()
+        ;
     }
 
     /**
