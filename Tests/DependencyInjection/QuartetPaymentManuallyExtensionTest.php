@@ -19,13 +19,16 @@ class QuartetPaymentManuallyExtensionTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->extension = new QuartetPaymentManuallyExtension();
-        $this->container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $this->container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerBuilder')
+            ->setMethods(array('setAlias'))
+            ->getMock()
+        ;
     }
 
     /**
      * @test
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage "payment_method"
+     * @expectedExceptionMessage "payment_methods"
      */
     public function testThrowExceptionUnlessSetPaymentMethod()
     {
@@ -39,12 +42,24 @@ class QuartetPaymentManuallyExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this
             ->container
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('setAlias')
-            ->with($this->equalTo('quartet_payment_manually.payment_method'), $this->equalTo('acme_payment_method'));
+            ->with($this->equalTo('quartet_payment_manually.payment_method.a'), $this->equalTo('acme_payment_method_a'))
+        ;
+
+        $this
+            ->container
+            ->expects($this->at(1))
+            ->method('setAlias')
+            ->with($this->equalTo('quartet_payment_manually.payment_method.b'), $this->equalTo('acme_payment_method_b'))
+        ;
 
         $this->extension->load(array(array(
-            'payment_method' => 'acme_payment_method'
-        )), $this->container);
+            'payment_methods' => array(
+                'a' => 'acme_payment_method_a',
+                'b' => 'acme_payment_method_b',
+            )
+        )), $this->container)
+        ;
     }
 }
