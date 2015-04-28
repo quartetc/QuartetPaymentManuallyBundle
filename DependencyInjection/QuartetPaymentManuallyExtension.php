@@ -16,7 +16,9 @@ class QuartetPaymentManuallyExtension extends Extension
     {
         $config = $this->processConfiguration($configuration = new Configuration(), $configs);
 
-        $container->setAlias('quartet_payment_manually.payment_method', $config['payment_method']);
+        foreach ($config['payment_methods'] as $key => $value) {
+            $container->setAlias("quartet_payment_manually.payment_method.${key}", $value);
+        }
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

@@ -18,7 +18,11 @@ class Configuration implements ConfigurationInterface
 
         $root
             ->children()
-                ->scalarNode('payment_method')->isRequired()->end()
+                ->arrayNode('payment_methods')
+                    ->isRequired()
+                    ->prototype('scalar')
+                    ->end()
+                ->end()
             ->end()
         ;
 
